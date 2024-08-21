@@ -1,0 +1,11 @@
+[
+  {
+      "model": "getajokeapi.user",
+      "pk": 1,
+      "fields": {
+          "name": "SOLOMON",
+          "username": "THEONE!",
+          "uid": 1
+      }
+  }
+]

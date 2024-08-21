@@ -1,0 +1,22 @@
+[
+  {
+      "model": "getajokeapi.comment",
+      "pk": 1,
+      "fields": {
+          "joke": 1,
+          "user": 1,
+          "content": "This joke is hilarious!",
+          "created_at": "2024-08-17T12:00:00Z"
+      }
+  },
+  {
+      "model": "getajokeapi.comment",
+      "pk": 2,
+      "fields": {
+          "joke": 1,
+          "user": 1,
+          "content": "I couldn't stop laughing!",
+          "created_at": "2024-08-17T12:05:00Z"
+      }
+  }
+]

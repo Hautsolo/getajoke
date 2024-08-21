@@ -1,0 +1,17 @@
+[
+    {
+        "model": "getajokeapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "country"
+        }
+    },
+    {
+        "model": "getajokeapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "city"
+        }
+    }
+  ]
+  
