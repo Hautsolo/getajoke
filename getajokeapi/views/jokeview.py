@@ -4,7 +4,6 @@ from getajokeapi.models import Joke, User, Tag, PostTag
 from django.conf import settings
 from django.db.models import Count
 from rest_framework.decorators import api_view
-import openai
 
 # Serializer
 class JokeSerializer(serializers.ModelSerializer):
@@ -16,9 +15,6 @@ class JokeSerializer(serializers.ModelSerializer):
         fields = ['id', 'content', 'user', 'upvotes_count', 'comments_count', 'created_at', 'tags', 'user_id']
         depth = 2
 
-
-# ViewSet
-openai.api_key = settings.OPENAI_API_KEY
 
 class JokeViewSet(viewsets.ModelViewSet):
     # queryset = Joke.objects.all()
@@ -138,29 +134,3 @@ class JokeViewSet(viewsets.ModelViewSet):
         except Joke.DoesNotExist:
             return JsonResponse({'error': 'Joke not found'}, status=404)
         
-    # def search_jokes(request):
-    #     query = request.GET.get('query', '')
-    #     if query:
-    #         jokes = Joke.objects.filter(tags__icontains=query)
-    #     else:
-    #         jokes = Joke.objects.all()
-    #     jokes_list = list(jokes.values())
-    #     return JsonResponse(jokes_list, safe=False)
-
-# OpenAI joke generation
-@api_view(['GET'])
-def generate_joke(request):
-    try:
-        # Ensure you're using the new OpenAI API for joke generation
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or another model that you have access to
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant that tells jokes."},
-                {"role": "user", "content": "Tell me a joke."}
-            ]
-        )
-
-        joke = response['choices'][0]['message']['content']
-        return Response({'joke': joke})
-    except Exception as e:
-        return Response({'error': str(e)}, status=500)

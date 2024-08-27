@@ -34,7 +34,6 @@ CORS_ORIGIN_WHITELIST = (
 
 
 # Application definition
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'sk-proj-zRuoSlAh-2sq7qFNrg6utYDJTwhVP8-3zcJHCBNdRKMmsMCJ-Zsth_SAqdT3BlbkFJXS_1Mw07HdlaX8P1nlMLyXChuLGPT76X4vVV9RLDiumv_esQ9C17roVOQAy')
 
 # UPDATE THIS
 INSTALLED_APPS = [

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
-from getajokeapi.views import JokeViewSet,check_user, CommentViewSet, generate_joke,UserView,TagView
+from getajokeapi.views import JokeViewSet,check_user, CommentViewSet,UserView,TagView
 
 router = routers.DefaultRouter(trailing_slash=False)
 
