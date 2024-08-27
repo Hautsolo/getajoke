@@ -33,4 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('checkuser', check_user),
+    path('jokes/<int:pk>/upvote/', JokeViewSet.as_view({'post': 'upvote'}), name='joke-upvote'),
+
 ]
