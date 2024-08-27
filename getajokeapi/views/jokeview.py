@@ -129,23 +129,38 @@ class JokeViewSet(viewsets.ModelViewSet):
         joke.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-    def upvote(self, request, pk=None):
-        """Handle POST requests to upvote a joke"""
-        joke = joke.objects.get( pk=pk)
-        user = request.user
-
-        if joke.upvote(user):
-            return Response({"message": "Upvote added."}, status=status.HTTP_200_OK)
-        else:
-            return Response({"message": "You have already upvoted this joke."}, status=status.HTTP_400_BAD_REQUEST)
+    def upvote_joke(request, joke_id):
+        try:
+            joke = Joke.objects.get(id=joke_id)
+            joke.upvotes_count += 1
+            joke.save()
+            return JsonResponse({'upvotes_count': joke.upvotes_count})
+        except Joke.DoesNotExist:
+            return JsonResponse({'error': 'Joke not found'}, status=404)
+        
+    # def search_jokes(request):
+    #     query = request.GET.get('query', '')
+    #     if query:
+    #         jokes = Joke.objects.filter(tags__icontains=query)
+    #     else:
+    #         jokes = Joke.objects.all()
+    #     jokes_list = list(jokes.values())
+    #     return JsonResponse(jokes_list, safe=False)
 
 # OpenAI joke generation
 @api_view(['GET'])
 def generate_joke(request):
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt="Tell me a joke.",
-        max_tokens=50
-    )
-    joke = response.choices[0].text.strip()
-    return Response({"joke": joke})
+    try:
+        # Ensure you're using the new OpenAI API for joke generation
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # or another model that you have access to
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant that tells jokes."},
+                {"role": "user", "content": "Tell me a joke."}
+            ]
+        )
+
+        joke = response['choices'][0]['message']['content']
+        return Response({'joke': joke})
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)

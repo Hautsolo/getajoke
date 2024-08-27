@@ -37,16 +37,29 @@ class CommentViewSet(viewsets.ViewSet):
         Returns:
             Response -- JSON serialized comment instance
         """
-        user = User.objects.get(pk=request.data["user_id"])
-        joke = Joke.objects.get(pk=request.data['joke_id'])
+        try:
+            # Extract joke_id from query parameters
+            joke_id = request.query_params.get('joke_id')
+            if not joke_id:
+                return Response({'error': 'joke_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            user = User.objects.get(pk=request.data["user_id"])
+            joke = Joke.objects.get(pk=joke_id)
 
-        comment = Comment.objects.create(
-            content = request.data["content"],
-            user = user,
-            joke = joke,
-        )
-        serializer = CommentSerializer(comment)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # Create the comment
+            comment = Comment.objects.create(
+                content=request.data["content"],
+                user=user,
+                joke=joke,
+            )
+
+            # Serialize the created comment and return it
+            serializer = CommentSerializer(comment)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Joke.DoesNotExist:
+            return Response({'error': 'Joke not found'}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):
         """Handle PUT requests to update a comment"""

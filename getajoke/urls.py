@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import path
 from rest_framework import routers
-
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.conf.urls import include
 from getajokeapi.views import JokeViewSet,check_user, CommentViewSet, generate_joke,UserView,TagView
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -28,10 +27,7 @@ router.register(r'comments', CommentViewSet, 'comment')
 router.register(r'users', UserView, 'user')
 router.register(r'tags', TagView, 'tag')
 
-urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api/generate-joke/', generate_joke, name='generate_joke'),
-]
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
