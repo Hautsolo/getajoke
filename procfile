@@ -1,2 +1,2 @@
-web: gunicorn app.wsgi
+web: gunicorn getajoke.wsgi
 release: python manage.py makemigrations; python manage.py migrate;
