@@ -36,7 +36,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST")
 
-# Application definition
+# Application definitison
 
 # UPDATE THIS
 INSTALLED_APPS = [
