@@ -23,19 +23,19 @@ env = Env()
 env.read_env(os.path.join(BASE_DIR, ".env"))
 
 LOGGING = {
-    # ...
-    "handlers": {
-        "null": {
-            "class": "logging.NullHandler",
+    'version': 1,  # Make sure this key is present
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
-    "loggers": {
-        "django.security.DisallowedHost": {
-            "handlers": ["null"],
-            "propagate": False,
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         },
     },
-    # ...
 }
 
 # Quick-start development settings - unsuitable for production
