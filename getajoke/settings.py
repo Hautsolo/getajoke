@@ -70,7 +70,7 @@ INSTALLED_APPS = [
 CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST", default=[
     'https://localhost:3000',
     'https://127.0.0.1:3000',
-    'https://effulgent-starship-b3401c.netlify.app'  # Add your Netlify domain here
+    'https://effulgent-starship-b3401c.netlify.app'  
 ])
 CORS_ALLOWED_ORIGINS = CORS_ORIGIN_WHITELIST
 CORS_ALLOW_CREDENTIALS = True
