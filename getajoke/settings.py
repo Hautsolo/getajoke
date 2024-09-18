@@ -68,8 +68,8 @@ INSTALLED_APPS = [
 
 # THIS IS NEW
 CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST", default=[
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    'https://localhost:3000',
+    'https://127.0.0.1:3000',
     'https://effulgent-starship-b3401c.netlify.app'  # Add your Netlify domain here
 ])
 CORS_ALLOWED_ORIGINS = CORS_ORIGIN_WHITELIST
@@ -78,10 +78,8 @@ CORS_ALLOW_CREDENTIALS = True
 
 # UPDATE THIS
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
